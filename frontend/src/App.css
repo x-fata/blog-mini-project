@@ -1,38 +1,90 @@
-.App {
+/* App.css - Muonekano wa Kisasa */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 350px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  color: #4cc9f0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  font-size: 14px;
+  color: #a2a2a2;
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.input-group {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
   color: white;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box;
+  /* Inazuia input kutoka nje ya box */
 }
 
-.App-link {
-  color: #61dafb;
+input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #4cc9f0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  width: 100%;
+  padding: 12px;
+  background: #4361ee;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background: #4cc9f0;
+  transform: translateY(-2px);
+}
+
+/* Urembo wa Logo */
+.logo-img {
+  width: 100px;
+  /* Huu ndio ukubwa wa Logo */
+  height: auto;
+  /* Inatunza umbo la picha */
+  margin-bottom: 20px;
+  /* Inatengeneza nafasi kati ya picha na maandishi */
+  border-radius: 50%;
+  /* Inafanya picha iwe ya duara (kama unataka) */
+  border: 2px solid #4cc9f0;
+  /* Fremu nyembamba ya rangi ya bluu */
 }

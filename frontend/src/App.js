@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import './App.css';
+import logoImg from './logo.jpeg'; // Hapa tunaichukua picha yako
 
 function App() {
-  // Hii ndio sehemu ya kutengeneza "kumbukumbu"
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: ''
   });
 
-  // Hii ni function ya kuchukua unachokiandika na kukiweka kwenye kumbukumbu
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,22 +18,28 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Data iliyorekodiwa:", formData);
-    alert("Hongera " + formData.fullName + "! Data zako zimepokelewa.");
+    alert("Hongera " + formData.fullName + "! Karibu kwenye mradi wa X-FATA & KAYANZA.");
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>X-FATA BLOG REGISTRATION</h1>
-      <p>Kumbukumbu inafanya kazi sasa...</p>
+    <div className="form-container">
+      {/* Hapa ndipo Logo inapoingia */}
+      <img src={logoImg} alt="X-Fata & Kayanza Logo" className="logo-img" />
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '300px', margin: '0 auto', gap: '10px' }}>
-        <input name="fullName" type="text" placeholder="Full Name" onChange={handleChange} style={{ padding: '10px' }} />
-        <input name="email" type="email" placeholder="Email Address" onChange={handleChange} style={{ padding: '10px' }} />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} style={{ padding: '10px' }} />
-        <button type="submit" style={{ padding: '10px', backgroundColor: 'green', color: 'white', cursor: 'pointer' }}>
-          SUBMIT DATA
-        </button>
+      <h1>OUR COMMUNITY</h1>
+      <p>Join our tech community</p>
+
+      <form onSubmit={handleSubmit}>
+        <div className="input-group">
+          <input name="fullName" type="text" placeholder="Full Name" onChange={handleChange} required />
+        </div>
+        <div className="input-group">
+          <input name="email" type="email" placeholder="Email Address" onChange={handleChange} required />
+        </div>
+        <div className="input-group">
+          <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+        </div>
+        <button type="submit">SIGN UP NOW</button>
       </form>
     </div>
   );
