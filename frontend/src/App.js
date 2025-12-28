@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
 import logoImg from './logo.jpeg';
-import { supabase } from './supabaseClient'; // Hapa ndipo tunapofungua daraja
+import { supabase } from './supabaseClient';
 
 function App() {
   const [isRegistering, setIsRegistering] = useState(true);
   const [formData, setFormData] = useState({ fullName: '', email: '', password: '' });
-  const [loading, setLoading] = useState(false); // Hii ni kwa ajili ya kuonyesha inasindika
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,13 +14,18 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Anza kusindika
+    setLoading(true);
 
     if (isRegistering) {
-      // 1. Tuma data kwa Kayanza (Registration)
+      // SEHEMU YA KUJISAJILI (Registration)
+      // Nimetuma data moja kwa moja bila mabano ya [] ili kuzuia "Array Error"
       const { error } = await supabase
         .from('users')
-        .insert([{ name: formData.fullName, email: formData.email, password: formData.password }]);
+        .insert({
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password
+        });
 
       if (error) {
         alert("Kuna tatizo: " + error.message);
@@ -28,7 +33,7 @@ function App() {
         alert("Hongera " + formData.fullName + "! Data zako zimehifadhiwa kwa Kayanza.");
       }
     } else {
-      // 2. Kagua kama akaunti ipo (Login)
+      // SEHEMU YA LOGIN
       const { data, error } = await supabase
         .from('users')
         .select('*')
@@ -42,7 +47,7 @@ function App() {
         alert("Email au Password ni makosa!");
       }
     }
-    setLoading(false); // Maliza kusindika
+    setLoading(false);
   };
 
   return (
