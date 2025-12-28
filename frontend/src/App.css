@@ -1,164 +1,125 @@
-/* App.css - Muonekano wa Kisasa */
+/* MPANGO MKUU WA RANGI NA MWILI */
+:root {
+  --primary: #4cc9f0;
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+}
+
 body {
   margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-gradient);
+  color: white;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
-.form-container {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  padding: 40px;
+/* CONTAINER KUU - Hapa ndipo Responsive inapoanzia */
+.form-container,
+.welcome-card {
+  background: var(--glass-bg);
+  padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 350px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   text-align: center;
+
+  /* Hii inahakikisha haizidi kioo cha simu */
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  /* Muhimu: inajumuisha padding kwenye upana */
 }
 
-h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
-  color: #4cc9f0;
-}
-
-p {
-  font-size: 14px;
-  color: #a2a2a2;
-  margin-bottom: 30px;
-}
-
-.input-group {
+/* LOGO - Inajirekebisha ukubwa */
+.logo-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary);
   margin-bottom: 20px;
+}
+
+.logo-img-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+/* INPUTS - Lazima ziwe 100% ya box */
+.input-group {
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 input {
   width: 100%;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 8px;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   color: white;
+  font-size: 16px;
+  /* Inazuia simu ku-zoom kiotomatiki */
+  box-sizing: border-box;
   outline: none;
   transition: 0.3s;
-  box-sizing: border-box;
-  /* Inazuia input kutoka nje ya box */
 }
 
 input:focus {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px #4cc9f0;
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.12);
 }
 
+/* KITUFE */
 button {
   width: 100%;
-  padding: 12px;
-  background: #4361ee;
+  padding: 14px;
+  background: var(--primary);
   border: none;
-  border-radius: 8px;
-  color: white;
+  border-radius: 10px;
+  color: #0f172a;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s;
-  text-transform: uppercase;
+  margin-top: 10px;
+  transition: transform 0.2s, background 0.3s;
 }
 
 button:hover {
-  background: #4cc9f0;
   transform: translateY(-2px);
+  filter: brightness(1.1);
 }
 
-/* Urembo wa Logo */
-.logo-img {
-  width: 100px;
-  /* Huu ndio ukubwa wa Logo */
-  height: auto;
-  /* Inatunza umbo la picha */
-  margin-bottom: 20px;
-  /* Inatengeneza nafasi kati ya picha na maandishi */
-  border-radius: 50%;
-  /* Inafanya picha iwe ya duara (kama unataka) */
-  border: 2px solid #4cc9f0;
-  /* Fremu nyembamba ya rangi ya bluu */
-}
-
-/* Animation ya kukaribisha */
-.welcome-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-.welcome-card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  border: 1px solid rgba(76, 201, 240, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: slideUp 0.5s ease;
-}
-
-.status-badge {
-  background: #4cc9f0;
-  color: #000;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: inline-block;
-  margin: 20px 0;
-}
-
-.logout-btn {
-  background: transparent;
-  border: 1px solid #ff4d4d;
-  color: #ff4d4d;
-  padding: 10px 20px;
-  border-radius: 10px;
+/* MAANDISHI YA TOGGLE */
+.toggle-text {
+  margin-top: 20px;
+  color: var(--primary);
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 0.9rem;
 }
 
-.logout-btn:hover {
-  background: #ff4d4d;
-  color: white;
-}
+/* MEDIA QUERIES - KWA AJILI YA SIMU NDOGO SANA */
+@media (max-width: 480px) {
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  .form-container,
+  .welcome-card {
+    padding: 20px;
+    border-radius: 15px;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  h1 {
+    font-size: 1.5rem;
   }
-}
 
-/* Spinner ya kusubiri */
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid #fff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: auto;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+  .logo-img {
+    width: 80px;
+    height: 80px;
   }
 }
