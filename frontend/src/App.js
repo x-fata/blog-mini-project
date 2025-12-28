@@ -8,6 +8,9 @@ function App() {
   const [formData, setFormData] = useState({ fullName: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
 
+  // Hii itatusaidia kujua kama mtu ameshaingia (Logged In)
+  const [user, setUser] = useState(null);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -16,47 +19,62 @@ function App() {
     e.preventDefault();
     setLoading(true);
 
-    if (isRegistering) {
-      // TUNATUMIA Mfumo wa .insert([ {data} ]) ambao ndio Supabase inataka
-      const { data, error } = await supabase
-        .from('users')
-        .insert([
-          {
-            name: formData.fullName,
-            email: formData.email,
-            password: formData.password
-          }
-        ]);
+    try {
+      if (isRegistering) {
+        // USAJILI
+        const { data, error } = await supabase
+          .from('users')
+          .insert([{ name: formData.fullName, email: formData.email, password: formData.password }])
+          .select();
 
-      if (error) {
-        console.log("Error Details:", error); // Hii itatusaidia kuona shida kwenye Console
-        alert("Kuna tatizo: " + error.message);
+        if (error) {
+          alert("Kuna tatizo: " + error.message);
+        } else {
+          setUser(data[0]); // Tunampeleka kwenye Page ya Karibu
+        }
       } else {
-        alert("Hongera " + formData.fullName + "! Data zako zimehifadhiwa kwa Kayanza.");
-      }
-    } else {
-      // LOGIN LOGIC
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', formData.email)
-        .eq('password', formData.password)
-        .single();
+        // LOGIN
+        const { data, error } = await supabase
+          .from('users')
+          .select('*')
+          .eq('email', formData.email)
+          .eq('password', formData.password)
+          .single();
 
-      if (data) {
-        alert("Karibu tena " + data.name + "!");
-      } else {
-        alert("Email au Password ni makosa!");
+        if (data) {
+          setUser(data); // Tunampeleka kwenye Page ya Karibu
+        } else {
+          alert("Email au Password ni makosa!");
+        }
       }
+    } catch (err) {
+      console.error(err);
     }
     setLoading(false);
   };
 
+  // 1. UKURASA WA KUKARIBISHA (Baada ya Login/Register)
+  if (user) {
+    return (
+      <div className="welcome-container">
+        <div className="welcome-card">
+          <img src={logoImg} alt="Logo" className="logo-img-small" />
+          <h1>Karibu Nyumbani, {user.name}! 🚀</h1>
+          <p>Umefanikiwa kuingia kwenye mradi wa <strong>X-Fata & Kayanza</strong>.</p>
+          <div className="status-badge">Account Active</div>
+          <button className="logout-btn" onClick={() => setUser(null)}>Log Out</button>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. UKURASA WA FOMU (Kama hajaingia bado)
   return (
     <div className="form-container">
       <img src={logoImg} alt="Logo" className="logo-img" />
-      <h1>{isRegistering ? 'SIGN UP' : 'LOGIN'}</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="fade-in">{isRegistering ? 'CREATE ACCOUNT' : 'WELCOME BACK'}</h1>
+
+      <form onSubmit={handleSubmit} className="form-animate">
         {isRegistering && (
           <div className="input-group">
             <input name="fullName" type="text" placeholder="Full Name" onChange={handleChange} required />
@@ -68,13 +86,14 @@ function App() {
         <div className="input-group">
           <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'WAIT...' : (isRegistering ? 'REGISTER' : 'LOG IN')}
+
+        <button type="submit" className="submit-btn" disabled={loading}>
+          {loading ? <div className="spinner"></div> : (isRegistering ? 'JOIN NOW' : 'SIGN IN')}
         </button>
       </form>
-      <p style={{ marginTop: '20px', cursor: 'pointer', color: '#4cc9f0' }}
-        onClick={() => setIsRegistering(!isRegistering)}>
-        {isRegistering ? "Tayari una akaunti? Login hapa" : "Huna akaunti? Jisajili hapa"}
+
+      <p className="toggle-text" onClick={() => setIsRegistering(!isRegistering)}>
+        {isRegistering ? "Tayari una akaunti? Ingia hapa" : "Huna akaunti? Jisajili hapa"}
       </p>
     </div>
   );
